@@ -1,0 +1,97 @@
+.wntrHeaderComponent {
+    &__navbar {
+        background-color: transparent;
+        -webkit-transition: 0.3s background-color linear;
+        -moz-transition: 0.3s background-color linear;
+        -moz-transition: 0.3s background-color linear;
+        -ms-transition: 0.3s background-color linear;
+        -o-transition: 0.3s background-color linear;
+        transition: 0.3s background-color linear, 0.3s -webkit-filter linear;
+        &.scrolling {
+            background-color: var(--dark-color-alpha);
+        }
+        .navbar-toggler {
+            border: 1px solid var(--white-color);
+            padding: 13px 20px 10px 20px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            font-size: medium;
+            color: var(--white-color);
+        }
+    }
+    &__navigation {
+        width: 100%;
+        @media (min-width: map-get($grid-breakpoints, "lg")) {
+            width: 70%;
+        }
+        display: flex;
+        justify-content: space-between;
+        margin-left: auto;
+        margin-right: auto;
+        &-item {
+            font-family: var(--secondary-font);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            a {
+                position: relative;
+                color: var(--tertirary-color);
+                @media (min-width: map-get($grid-breakpoints, "md")) {
+                    color: var(--tertirary-color);
+                }
+                &::after {
+                    content: "";
+                    position: absolute;
+                    width: 0;
+                    bottom: 0;
+                    left: 0;
+                    transition: .3s ease-in-out;
+                    border-bottom: 2px solid var(--white-color);
+                }
+                &:hover {
+                    color: var(--primary-color) !important;
+                    &::after {
+                        width: 100%;
+                    }
+                }
+                &:active, &.active {
+                    color: var(--primary-color) !important;
+                    &::after {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+    &__scroller {
+        height: calc(var(--gutter) * 4);
+        width: calc(var(--gutter) * 4);
+        background-color: var(--dark-color-alpha);
+        position: fixed;
+        bottom: calc(var(--gutter) * 2);
+        right: calc(var(--gutter) * 2);
+        cursor: pointer;
+        border-radius: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+        &:hover, &:focus {
+            background-color: var(--dark-color);
+        }
+        &-arrow {
+            border: solid var(--white-color);
+            border-width: 0 3px 3px 0;
+            display: inline-block;
+            padding: 3px;
+            transition: transform 1s ease;
+            &-up {
+                transform: rotate(-135deg);
+                -webkit-transform: rotate(-135deg);
+            }
+            &-down {
+                transform: rotate(45deg);
+                -webkit-transform: rotate(45deg);
+            }
+        }
+    }
+}

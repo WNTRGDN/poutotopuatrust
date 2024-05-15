@@ -1,0 +1,61 @@
+.wntrSplitBlock {
+    overflow-x: hidden;
+    &__col {
+        padding: 0;
+    }
+    &__row {
+        @media (min-width: map-get($grid-breakpoints, "xl")) {
+            [data-type="Image"] + [data-type="Text"]{
+                .wntrTextBlock {
+                    margin: 0 calc(var(--gutter) * 1.7) 0 var(--gutter);
+                }
+            }
+        }
+    }
+    .container-fluid {
+        padding: 0;
+    }
+    .wntrTextBlock {
+        position: relative;
+        color: var(--dark-color);
+        width: 100%;
+        padding: calc(var(--gutter) * 2);
+        height: 100%;
+        margin-top: 0;
+        @media (min-width: map-get($grid-breakpoints, "xl")) {
+            padding: calc(var(--gutter) * 4) 0;
+            margin: 0 var(--gutter) 0;
+        }
+        h1, h2, h3, h4, h5 {
+            font-family: var(--primary-font);
+            font-weight: var(--primary-font-weight-bold);
+            color: var(--tertiary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: calc(var(--gutter) * 2);
+        }
+        a {
+            color: var(--white-color);
+            text-decoration: none;
+        }
+    }
+    .wntrImageBlock {
+        width: 100%;
+        margin-top: 0;
+    }
+
+    // inverted
+    &-inverted {
+        .wntrSplitBlock {
+            &__col {
+                background-color: transparent;
+            }
+        }
+        .wntrTextBlock {
+            color: var(--primary-color);
+            a {
+                color: var(--primary-color);
+            }
+        }
+    }
+}
