@@ -4,6 +4,7 @@ import Main from "./main/main"
 import Header from "./header/header"
 import Footer from "./footer/footer"
 import Form from "./form/form"
+import Login from "./login/login"
 
 export {
     Block,
@@ -11,5 +12,6 @@ export {
     Main,
     Header,
     Footer,
-    Form
+    Form,
+    Login
 }

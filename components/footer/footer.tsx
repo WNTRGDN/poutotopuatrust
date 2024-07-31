@@ -19,16 +19,10 @@ const Footer: FC = () => {
         <footer className={component.name}>
             <Container>
                 <Row>
-                    <Col xs={6} lg={5} xl={2}>
+                    <Col xs={12} lg={10} xl={4}>
                         <h4>{quicklinks?.title}</h4>
                         <menu className={`${component.name}__menu`}>
                             {quicklinks?.links?.map((link, index) => <Link key={index} href={link.url}>{link.title}</Link> )}
-                        </menu>
-                    </Col>
-                    <Col xs={6} lg={5} xl={2}>
-                        <h4>{services?.title}</h4>
-                        <menu className={`${component.name}__menu`}>
-                            {services?.links?.map((link, index) => <Link key={index} href={link.url}>{link.title}</Link> )}
                         </menu>
                     </Col>
                     { website.socials ?
