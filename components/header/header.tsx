@@ -38,7 +38,7 @@ const Header: FC = () => {
                                 <Image className={`${component.name}__logo`} src={`${website.settings.logo}`} height="65" width="212" alt={`${website.name} logo`} />
                             </Link>
                         </Navbar.Brand>
-                        <Navbar.Toggle className="ms-auto" onClick={() => setShowLogin(true)}>Login</Navbar.Toggle>
+                        <Login />
                         <Navbar.Toggle aria-controls={component.name} className="ms-3" onClick={handleShow}>Menu</Navbar.Toggle>
                         <Navbar.Offcanvas show={show} onHide={handleClose} id={component.name} placement="end">
                             <Offcanvas.Header closeButton></Offcanvas.Header>
@@ -57,6 +57,7 @@ const Header: FC = () => {
 }
 
 const Menu: FC<IMenu> = (menu) => {
+
     return (
         <Nav key={menu.alias} className={`${component.name}__navigation`}>
             {menu.includeHome ? <NavigationLink key="-1" url="/" title="Home" /> : null}

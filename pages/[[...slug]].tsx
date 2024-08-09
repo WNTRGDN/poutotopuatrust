@@ -5,6 +5,9 @@ import { GetServerSideProps } from 'next'
 import { useContext, useEffect } from 'react'
 import { Loading, Header, Main, Footer } from 'WNTR/components'
 import { IWebsite, IPage } from 'WNTR/interfaces'
+import { getCookie } from 'cookies-next'
+import { cookies } from 'next/headers'
+import cookie from 'cookie'
 
 export default function Index({ website, page }: { website: IWebsite, page: IPage }) {
     
@@ -27,8 +30,8 @@ export default function Index({ website, page }: { website: IWebsite, page: IPag
                 <meta property="og:url" content={page.url} />
                 <meta property="og:image" content={`${page.metaData.image}?mode=crop&width=500&height=500`} />
                 <meta name="site_name" property="og:site_name" content={website.name} />
-                <meta name="twitter:site" content="RaeRacingStables" />
-                <meta name="twitter:site:id" content="RaeRacingStables" />
+                <meta name="twitter:site" content="PoutoTopuATrust" />
+                <meta name="twitter:site:id" content="PoutoTopuATrust" />
                 <meta name="twitter:card" content="summary" />
                 <meta name="twitter:title" content={page.metaData.title ?? page.name + ' | ' + website.name} />
                 <meta name="twitter:description" content={page.metaData.description} />
@@ -46,18 +49,23 @@ export default function Index({ website, page }: { website: IWebsite, page: IPag
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
     let path = "/";
-    [params?.slug].map((slug) => path += slug?.toString().replace(",", "/") + "/")
+    [context.params?.slug].map((slug) => path += slug?.toString().replace(",", "/") + "/")
 
+    var WNTR_MBR_TOKEN = context.req.cookies['WNTR_MBR-TOKEN'] //getCookie('WNTR_MBR-TOKEN')
+    var WNTR_MBR_ID = context.req.cookies['WNTR_MBR-ID'] //getCookie('WNTR_MBR-ID')
+    
     const api = axios.create({
         baseURL: process.env.API_HOST,
         headers: {
-            'ApiKey': process.env.API_KEY
+            'ApiKey': process.env.API_KEY,
+            'MemberToken': WNTR_MBR_TOKEN,
+            'MemberId': WNTR_MBR_ID
         }
     })
     const website = await api.get('/api/website')
-    const id = params?.slug && website.data.routes[path] !== undefined ? website.data.routes[path] : website.data.id;
+    const id = context.params?.slug && website.data.routes[path] !== undefined ? website.data.routes[path] : website.data.id;
     const page = await api.get('/api/page/' + id)
 
     return { props: { website: website.data, page: page.data } }

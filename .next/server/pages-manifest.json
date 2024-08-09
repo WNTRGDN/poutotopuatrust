@@ -1,6 +1,7 @@
 {
   "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/[[...slug]]": "pages/[[...slug]].js"
+  "/_error": "pages/_error.js",
+  "/[[...slug]]": "pages/[[...slug]].js",
+  "/api/member/update": "pages/api/member/update.js"
 }

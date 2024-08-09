@@ -9,6 +9,7 @@ import Form from "./form/form"
 import Embed from "./embed/embed"
 import Jumbotron from "./jumbotron/jumbotron"
 import Figures from "./figures/figures"
+import Members from "./members/members"
 
 export {
     Hero,
@@ -21,5 +22,6 @@ export {
     Form,
     Embed,
     Jumbotron,
-    Figures
+    Figures,
+    Members
 }

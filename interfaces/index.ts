@@ -198,7 +198,3 @@ export interface IFooter {
     name: string;
     socials: ISocials;
 }
-
-export interface ILogin {
-    show?: boolean;
-}
