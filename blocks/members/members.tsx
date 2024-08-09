@@ -31,7 +31,7 @@ const Members: FC<IMembers> = (block) => {
         var name = event.currentTarget.elements['name']?.value as string
         var email = event.currentTarget.elements['email']?.value as string
 
-        block.properties.map(field => data[field?.alias] = event.currentTarget.elements[field.alias]?.value)
+        block.properties.map(field => data[field?.alias] = event.currentTarget.elements[field.alias as string]?.value)
 
         await axios.post('/api/member/update', data, { headers: { 'name': name, 'email': email } }).then(res => {
             console.log(res)
