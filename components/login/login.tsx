@@ -24,12 +24,13 @@ const Login: FC<ILogin> = (login) => {
 
     const handleLogin = async () => {
         await axios.post('/api/member/login', { username: username, password: password }).then(res => {
-            if(res.data) {
+            if(res.data && res.data.id != null && res.data.token != null) {
                 setCookie('WNTR_MBR-ID', res.data.id)
                 setCookie('WNTR_MBR-TOKEN', res.data.token)
                 handleClose()
                 router.push('/beneficiaries')
             } else {
+                console.log(res.data)
                 setMessage("Incorrect username or password.")
             }
         })
