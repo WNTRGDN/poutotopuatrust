@@ -14,7 +14,7 @@ async function handler(
         method: 'post',
         maxBodyLength: Infinity,
         parseSetCookie: true,
-        url: process.env.API_HOST + 'api/members/login',
+        url: process.env.API_HOST + '/api/members/login',
         headers: { 
             'ApiKey': process.env.API_KEY,
             'Name': req.headers.name,
