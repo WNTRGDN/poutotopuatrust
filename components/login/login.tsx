@@ -24,13 +24,17 @@ const Login: FC<ILogin> = (login) => {
 
     const handleLogin = async () => {
         await axios.post('/api/member/login', { username: username, password: password }).then(res => {
+            console.log(res.data)
             if(res.data && res.data.id != null && res.data.token != null) {
                 setCookie('WNTR_MBR-ID', res.data.id)
                 setCookie('WNTR_MBR-TOKEN', res.data.token)
                 handleClose()
                 router.push('/beneficiaries')
+            } else if(res.data && res.data.isNotAllowed) {
+                setMessage("Please check your emails for the approval email before attempting to login.")
+            } else if(res.data && res.data.isLockedOut) {
+                setMessage("There seems to be a lock on your account. Please contact support using the form at the bottom of the page.")
             } else {
-                console.log(res.data)
                 setMessage("Incorrect username or password.")
             }
         })
