@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 import { IBlock } from 'WNTR/interfaces'
-import { Container, Row, Col, Card, ListGroup, Form, Button } from 'react-bootstrap'
+import { Container, Row, Col, Card, ListGroup, Form, Button, Alert } from 'react-bootstrap'
 import moment from 'moment'
 import axios from 'axios'
 import { deleteCookie } from 'cookies-next'
@@ -8,6 +8,9 @@ import router from 'next/router'
 
 const Members: FC<IMembers> = (block) => {
 
+    const [message, setMessage] = useState<string>()
+    const [success, setSuccess] = useState<boolean>()
+    const handleScroll = () => window.scrollTo({ top: 0, behavior: 'auto' })
     const [tab, setTab] = useState(0)
     const tabs = [
         'My Details'
@@ -23,7 +26,7 @@ const Members: FC<IMembers> = (block) => {
         })
     }
 
-    const handleUpdate= async (event: React.FormEvent<IHTMLFormElement>) => {
+    const handleUpdate = async (event: React.FormEvent<IHTMLFormElement>) => {
         event.preventDefault()
 
         const data: { [key: string]: string } = {}
@@ -33,8 +36,13 @@ const Members: FC<IMembers> = (block) => {
 
         block.properties.map(field => data[field?.alias] = event.currentTarget.elements[field.alias as string]?.value)
 
-        await axios.post('/api/member/update', data, { headers: { 'name': name, 'email': email } }).then(res => {
-            console.log(res)
+        data['name'] = name
+        data['email'] = email
+
+        await axios.post('/api/member/update', data).then(res => {
+            handleScroll()
+            setMessage(res.data.isApproved ? "Update Successful!" : "Error, please try again later.")
+            setSuccess(res.data.isApproved)
         })
     }
 
@@ -57,6 +65,9 @@ const Members: FC<IMembers> = (block) => {
                         </ListGroup>
                     </Col>
                     <Col lg={9}>
+                        {message ?
+                            <Alert variant={success ? 'success' : 'danger'}>{message}</Alert>
+                        : null}
                         <Card>
                             <Card.Body>
                                 <article>
@@ -77,7 +88,7 @@ const Members: FC<IMembers> = (block) => {
                                             return (
                                                 <Form.Group key={property.key} className="mb-4">
                                                     <Form.Label>{property.propertyType.name}</Form.Label>
-                                                    <Form.Control type="text" name={property.propertyType.alias} defaultValue={property.values[0].editedValue} />
+                                                    <Form.Control type="text" name={property.propertyType.alias} defaultValue={property.values[0]?.editedValue} />
                                                 </Form.Group>
                                             )
                                         })}
