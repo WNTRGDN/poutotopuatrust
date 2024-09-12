@@ -34,6 +34,7 @@ const Login: FC<ILogin> = (login) => {
 
     const handleLogin = async () => {
         await axios.post('/api/member/login', { username: username, password: password }).then(res => {
+            console.log(res)
             if(res.data && res.data.id != null && res.data.token != null) {
                 setCookie('WNTR_MBR-ID', res.data.id)
                 setCookie('WNTR_MBR-TOKEN', res.data.token)
@@ -63,6 +64,7 @@ const Login: FC<ILogin> = (login) => {
     const handleCreate = async () => {
         setSubmitting(true)
         await axios.post('/api/member/create', { name: name, email: username, password: password, description: description, memberTypeAlias: "poutoTopuATrust" }).then(res => {
+            console.log(res)
             setMessage(res.data.message)
             setSubmitted(res.data.success)
             setSubmitting(false)
