@@ -69,6 +69,7 @@ const Form: FC<IForm> = (block) => {
 }
 
 const FormField: FC<IField> = (field) => {
+    console.log(field)
     const controls: { [key: string]: any } = {
         "shortAnswer": ShortAnswer,
         "dropdown": Dropdown,
