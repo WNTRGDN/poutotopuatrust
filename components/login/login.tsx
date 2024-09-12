@@ -51,6 +51,7 @@ const Login: FC<ILogin> = (login) => {
 
     const handleLogout = async () => {
         await axios.post('/api/member/logout').then(res => {
+            console.log(res)
             if(!res.data) {
                 deleteCookie('WNTR_MBR-ID')
                 deleteCookie('WNTR_MBR-TOKEN')
