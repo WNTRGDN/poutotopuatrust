@@ -1,25 +1,30 @@
-import React, { FC, useContext } from 'react'
+import React, { FC, useContext, useState } from 'react'
 import Context from 'WNTR/utils/context'
 import { Form as BSForm, Button, Container, Row, Col } from 'react-bootstrap'
 import { IField, IForm, IHTMLFormElement } from 'WNTR/interfaces'
+import axios from 'axios'
 
 const Form: FC<IForm> = (block) => {
+
+    type FieldTypes = Record<string, string>
+
+    const [submitted, setSubmitted] = useState(false)
+    const [submitting, setSubmitting] = useState(false)
+    const fieldTypes: FieldTypes = block.fieldTypes
     
     const handleSubmit = async (event: React.FormEvent<IHTMLFormElement>) => {
         event.preventDefault()
-        //setSubmitting(true)
+        setSubmitting(true)
 
         const data: { [key: string]: string } = {}
 
-        block.allFields.map(field => data[field?.alias] = event.currentTarget.elements[field.alias]?.value)
+        block.fields.map(field => data[field.alias] = event.currentTarget.elements[field.alias]?.value)
 
-        //await axios.post('/api/form/submit', data, { headers: { 'Id': form.id } }).then(res => {
-        //    if(res.data) {
-        //        setSubmitted(true)
-        //    }
-        //})
-
-        console.log(data)
+        await axios.post('/api/form/submit', data, { headers: { 'Id': block.id } }).then(res => {
+            if(res.data) {
+                setSubmitted(true)
+            }
+        })
     }
 
     return (
