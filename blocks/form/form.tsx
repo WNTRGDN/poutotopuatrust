@@ -74,7 +74,6 @@ const Form: FC<IForm> = (block) => {
 }
 
 const FormField: FC<IField> = (field) => {
-    console.log(field)
     const controls: { [key: string]: any } = {
         "shortAnswer": ShortAnswer,
         "dropdown": Dropdown,
@@ -105,7 +104,6 @@ const Dropdown: FC<IField> = (field) => {
         <BSForm.Group className={`${field.blockAlias}__field`} controlId={field.id}>
             <BSForm.Label className={`${field.settings.showLabel ? null : 'visually-hidden'}`}>{field.caption}</BSForm.Label>
             <BSForm.Select
-                onLoad={e => console.log(e.currentTarget.value)}
                 aria-label={field.caption}
                 name={field.alias}
                 disabled={field.submitting}

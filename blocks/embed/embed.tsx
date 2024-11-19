@@ -3,7 +3,6 @@ import { IBlock } from 'WNTR/interfaces'
 import { Container, Row, Col } from 'react-bootstrap'
 
 const Embed: FC<IEmbed> = (block) => {
-    console.log(block)
     return (
         <article className={block.alias}>
             <Container>

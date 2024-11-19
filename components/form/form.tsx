@@ -28,7 +28,7 @@ const Form: FC = () => {
 
         const data: { [key: string]: string } = {}
 
-        console.log(form?.fields)
+        console.log(form.fields)
 
         form?.fields?.map(field => data[field?.alias] = event.currentTarget.elements[field.alias]?.value)
 
