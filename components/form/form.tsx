@@ -31,7 +31,6 @@ const Form: FC = () => {
         form?.fields?.map(field => data[field?.alias] = event.currentTarget.elements[field.alias]?.value)
 
         await axios.post('/api/form/submit', data, { headers: { 'Id': form.id } }).then(res => {
-            console.log(data)
             if(res.data) {
                 setSubmitted(true)
             }

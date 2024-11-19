@@ -1,6 +1,7 @@
 import React, { FC, useContext, useState } from 'react'
 import Context from 'WNTR/utils/context'
 import { Form as BSForm, Button, Container, Row, Col } from 'react-bootstrap'
+import { Loading } from 'WNTR/components'
 import { IField, IForm, IHTMLFormElement } from 'WNTR/interfaces'
 import axios from 'axios'
 
@@ -18,11 +19,12 @@ const Form: FC<IForm> = (block) => {
 
         const data: { [key: string]: string } = {}
 
-        block.fields.map(field => data[field.alias] = event.currentTarget.elements[field.alias]?.value)
+        block.allFields.map(field => data[field.alias] = event.currentTarget.elements[field.alias]?.value)
 
         await axios.post('/api/form/submit', data, { headers: { 'Id': block.id } }).then(res => {
             if(res.data) {
                 setSubmitted(true)
+                setSubmitting(false)
             }
         })
     }
@@ -32,40 +34,44 @@ const Form: FC<IForm> = (block) => {
             <Container>
                 <Row>
                     <Col xs={12} lg={{ offset: 2, span: 8 }} xl={{ offset: 3, span: 6 }}>
-                        <BSForm id={block.id} onSubmit={handleSubmit} data-success-message={block.messageOnSubmit}>
-                            <h2>{block.name}</h2>
-                            {block.containers.map(container => 
-                                <Container key={container.id}>
-                                    <Row hidden={!container.caption}>
-                                        <Col xs={12}>
-                                            <h3>{container.caption}</h3>
-                                        </Col>
-                                    </Row>
-                                    {container.rows.map(row => 
-                                        <Row key={row.id} data-condition={row.condition} data-sort={row.sortOrder}>
-                                            <Col xs={12} hidden={!row.caption}>
-                                                <h4>{row.caption}</h4>
+                        { submitted 
+                            ? <p className="text-center">{block.messageOnSubmit}</p>
+                            : <BSForm id={block.id} onSubmit={handleSubmit} data-success-message={block.messageOnSubmit}>
+                                <h2>{block.name}</h2>
+                                {block.containers.map(container => 
+                                    <Container key={container.id}>
+                                        <Row hidden={!container.caption}>
+                                            <Col xs={12}>
+                                                <h3>{container.caption}</h3>
                                             </Col>
-                                            {row.cols.map((col,i) =>
-                                                <Col key={i} xs={12} lg={col.width}>
-                                                    {col.fields.map(field =>
-                                                        <FormField
-                                                            key={field.id}
-                                                            {...field}
-                                                            fieldType={block.fieldTypes[field.fieldTypeId]}
-                                                            blockAlias={block.alias}    
-                                                        />
-                                                    )}
-                                                </Col>
-                                            )}
                                         </Row>
-                                    )}
-                                </Container>
-                            )}
-                            <BSForm.Group className={`${block.alias}__field`}>
-                                <Button className={`${block.alias}__button`} type="submit">{block.submitLabel}</Button>
-                            </BSForm.Group>
-                        </BSForm>
+                                        {container.rows.map(row => 
+                                            <Row key={row.id} data-condition={row.condition} data-sort={row.sortOrder}>
+                                                <Col xs={12} hidden={!row.caption}>
+                                                    <h4>{row.caption}</h4>
+                                                </Col>
+                                                {row.cols.map((col,i) =>
+                                                    <Col key={i} xs={12} lg={col.width}>
+                                                        {col.fields.map(field =>
+                                                            <FormField
+                                                                key={field.id}
+                                                                {...field}
+                                                                fieldType={block.fieldTypes[field.fieldTypeId]}
+                                                                blockAlias={block.alias}    
+                                                            />
+                                                        )}
+                                                    </Col>
+                                                )}
+                                            </Row>
+                                        )}
+                                    </Container>
+                                )}
+                                <BSForm.Group className={`${block.alias}__field`}>
+                                    <Button className={`${block.alias}__button`} type="submit">{block.submitLabel}</Button>
+                                </BSForm.Group>
+                                { submitting && !submitted ? <Loading height="100%" position="absolute" background="transparent" /> : null }
+                            </BSForm>
+                        }
                     </Col>
                 </Row>
             </Container>
@@ -74,7 +80,6 @@ const Form: FC<IForm> = (block) => {
 }
 
 const FormField: FC<IField> = (field) => {
-    console.log(field)
     const controls: { [key: string]: any } = {
         "shortAnswer": ShortAnswer,
         "dropdown": Dropdown,
@@ -105,7 +110,6 @@ const Dropdown: FC<IField> = (field) => {
         <BSForm.Group className={`${field.blockAlias}__field`} controlId={field.id}>
             <BSForm.Label className={`${field.settings.showLabel ? null : 'visually-hidden'}`}>{field.caption}</BSForm.Label>
             <BSForm.Select
-                onLoad={e => console.log(e.currentTarget.value)}
                 aria-label={field.caption}
                 name={field.alias}
                 disabled={field.submitting}

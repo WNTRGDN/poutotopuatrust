@@ -3,6 +3,7 @@
     flex-direction: column;
     margin-top: calc(var(--gutter));
     margin-bottom: calc(var(--gutter));
+    position: relative;
     h2, h3, h4 {
         font-family: var(--secondary-font);
         text-transform: uppercase;
