@@ -10,6 +10,7 @@ import Embed from "./embed/embed"
 import Jumbotron from "./jumbotron/jumbotron"
 import Figures from "./figures/figures"
 import Members from "./members/members"
+import Teasers from "./teasers/teasers"
 
 export {
     Hero,
@@ -23,5 +24,6 @@ export {
     Embed,
     Jumbotron,
     Figures,
-    Members
+    Members,
+    Teasers
 }

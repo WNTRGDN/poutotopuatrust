@@ -1,0 +1,23 @@
+.wntrTeasersBlock {
+    background-color: var(--off-white);
+    &__heading {
+        font-family: var(--primary-font);
+        font-weight: var(--primary-font-weight-bold);
+        color: var(--tertiary-color);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+    &__content {
+        opacity: 0;
+        background-color: var(--tertiary-color-alpha);
+        -webkit-transition: 0.3s opacity linear;
+        -moz-transition: 0.3s opacity linear;
+        -moz-transition: 0.3s opacity linear;
+        -ms-transition: 0.3s opacity linear;
+        -o-transition: 0.3s opacity linear;
+        transition: 0.3s opacity linear, 0.3s -webkit-filter linear;
+        &:hover, &:focus {
+            opacity: 1;
+        }
+    }
+}
