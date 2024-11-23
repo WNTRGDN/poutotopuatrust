@@ -125,7 +125,8 @@ export interface IImageProps {
 export interface ICrops {
     Hero: string,
     Thumbnail: string,
-    Banner: string
+    Banner: string,
+    Portrait: string
 }
 
 export interface IPage {

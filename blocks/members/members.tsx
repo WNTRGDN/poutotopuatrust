@@ -13,8 +13,16 @@ const Members: FC<IMembers> = (block) => {
     const handleScroll = () => window.scrollTo({ top: 0, behavior: 'auto' })
     const [tab, setTab] = useState(0)
     const tabs = [
-        'My Details'
+        'My Details',
+        'Documents'
     ]
+
+    var controls: { [key: string]: any } = {
+        'My Details': MyDetails,
+        'Documents': Documents
+    };
+
+    const Tab = controls[tabs[tab]]
 
     const handleLogout = async () => {
         await axios.post('/api/member/logout').then(res => {
@@ -71,29 +79,8 @@ const Members: FC<IMembers> = (block) => {
                         <Card>
                             <Card.Body>
                                 <article>
-                                    <h4 className="mb-4">My Details</h4>
-                                    <Form id="member-details" onSubmit={handleUpdate}>
-                                        <input type="hidden" name="id" defaultValue={block.name} />
-                                        <Form.Group className="mb-4">
-                                            <Form.Label>Name</Form.Label>
-                                            <Form.Control type="text" name="name" defaultValue={block.name} />
-                                        </Form.Group>
-                                        <Form.Group className="mb-4">
-                                            <Form.Label>Email</Form.Label>
-                                            <Form.Control type="email" name="email" defaultValue={block.email} disabled />
-                                            <Form.Text>To update your email, please contact us.</Form.Text>
-                                        </Form.Group>
-                                        <hr/>
-                                        {block.properties.map((property, index) => {
-                                            return (
-                                                <Form.Group key={property.key} className="mb-4">
-                                                    <Form.Label>{property.propertyType.name}</Form.Label>
-                                                    <Form.Control type="text" name={property.propertyType.alias} defaultValue={property.values[0]?.editedValue} />
-                                                </Form.Group>
-                                            )
-                                        })}
-                                        <Button variant="success" type="submit">Update Details</Button>
-                                    </Form>
+                                    <h4 className="mb-4">{tabs[tab]}</h4>
+                                    <Tab {...block} onHandleUpdate={handleUpdate} />
                                 </article>
                             </Card.Body>
                         </Card>
@@ -104,12 +91,72 @@ const Members: FC<IMembers> = (block) => {
     )
 }
 
+const MyDetails: FC<IMembers> = (block) => {
+    
+    return (
+        <Form id="member-details" onSubmit={block.onHandleUpdate}>
+            <input type="hidden" name="id" defaultValue={block.name} />
+            <Form.Group className="mb-4">
+                <Form.Label>Name</Form.Label>
+                <Form.Control type="text" name="name" defaultValue={block.name} />
+            </Form.Group>
+            <Form.Group className="mb-4">
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="email" name="email" defaultValue={block.email} disabled />
+                <Form.Text>To update your email, please contact us.</Form.Text>
+            </Form.Group>
+            <hr/>
+            {block.properties.map((property, index) => {
+                return (
+                    <Form.Group key={property.key} className="mb-4">
+                        <Form.Label>{property.propertyType.name}</Form.Label>
+                        <Form.Control type="text" name={property.propertyType.alias} defaultValue={property.values[0]?.editedValue} />
+                    </Form.Group>
+                )
+            })}
+            <Button variant="success" type="submit">Update Details</Button>
+        </Form>
+    )
+}
+
+const Documents: FC<IMembers> = (block) => {
+    return (
+        <div>
+            {block.documents.map((document) => {
+                return (
+                    <a key={document.id} href={block.host + document.path} className="d-flex text-tertiary text-decoration-none border-top py-3" download>
+                        <div className="me-auto d-flex flex-column">
+                            <p className="mb-0"><strong>{document.name}</strong></p>
+                            <small className="text-black-50"><span className="text-uppercase">{document.extension}</span> Document</small>
+                        </div>
+                        <div className="ms-auto d-flex flex-column">
+                            <small><strong>Download</strong></small>
+                            <small className="text-black-50">{moment(document.updateDate).format('DD/MM/YYYY')}</small>
+                        </div>
+                    </a>
+                )
+            })}
+        </div>
+    )
+}
+
 interface IMembers extends IBlock {
     id: string,
     name: string,
     email: string,
     lastLoginDate: Date,
-    properties: any[]
+    properties: any[],
+    documents: IDocument[],
+    host: string,
+    onHandleUpdate?: (event: React.FormEvent<IHTMLFormElement>) => void
+}
+
+interface IDocument {
+    extension: string,
+    id: number, 
+    name: string,
+    path: string,
+    updateDate: Date
 }
 
 export interface IHTMLFormElement extends HTMLFormElement {

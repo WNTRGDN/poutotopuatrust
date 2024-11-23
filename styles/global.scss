@@ -8,6 +8,7 @@
     --tertiary-color: rgb(0, 76, 38);
     --white-color: rgb(255, 255, 255);
     --white-color-alpha: rgba(255, 255, 255, 0.5);
+    --off-white: #f1f0f0;
     --tertiary-color-alpha: rgba(0, 76, 38, 0.5);
     --dark-color: rgb(34, 34, 34);
     --dark-color-alpha: rgba(34, 34, 34, 0.8);
@@ -39,6 +40,7 @@
 @import '../blocks/embed/embed';
 @import '../blocks/jumbotron/jumbotron';
 @import '../blocks/figures/figures';
+@import '../blocks/teasers/teasers';
 
 
 html {
@@ -46,6 +48,10 @@ html {
         font-family: var(--primary-font);
         background-color: var(--white-color);
     }
+}
+
+.text-tertiary {
+    color: var(--tertiary-color) !important;
 }
 
 // svg
