@@ -14,12 +14,12 @@ const Members: FC<IMembers> = (block) => {
     const [tab, setTab] = useState(0)
     const tabs = [
         'My Details',
-        'Documents'
+        'AGM'
     ]
 
     var controls: { [key: string]: any } = {
         'My Details': MyDetails,
-        'Documents': Documents
+        'AGM': Documents
     };
 
     const Tab = controls[tabs[tab]]
