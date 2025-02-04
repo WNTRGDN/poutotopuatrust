@@ -1,16 +1,16 @@
-export const pageview = (url: URL, id: string) => {
-  if (typeof window.gtag !== 'undefined') {
-    window.gtag("config", id, {
-      page_path: url
-    })
-  }
-}
+export const GA_TRACKING_ID = "G-WCN2KG3Y40";
+
+export const pageview = (url: URL) => {
+  window.gtag("config", GA_TRACKING_ID, {
+    page_path: url
+  });
+};
 
 type GTagEvent = {
-  action: string,
-  category: string,
-  label: string,
-  value: number
+  action: string;
+  category: string;
+  label: string;
+  value: number;
 };
 
 export const event = ({ action, category, label, value }: GTagEvent) => {
@@ -18,5 +18,5 @@ export const event = ({ action, category, label, value }: GTagEvent) => {
     event_category: category,
     event_label: label,
     value: value
-  })
-}
+  });
+};
