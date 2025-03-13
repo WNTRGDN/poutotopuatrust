@@ -14,12 +14,16 @@ const Members: FC<IMembers> = (block) => {
     const [tab, setTab] = useState(0)
     const tabs = [
         'My Details',
-        'AGM'
+        'AGM',
+        'Strategy',
+        'Workstreams'
     ]
 
     var controls: { [key: string]: any } = {
         'My Details': MyDetails,
-        'AGM': Documents
+        'AGM': Documents,
+        'Strategy': Strategy,
+        'Workstreams': Workstreams
     };
 
     const Tab = controls[tabs[tab]]
@@ -140,6 +144,71 @@ const Documents: FC<IMembers> = (block) => {
     )
 }
 
+const Strategy: FC<IMembers> = (block) => {
+    return (
+        <>
+            <h5>Vision</h5>
+            <p><em>Shared by all</em></p>
+            <p>Our people and communities are thriving, prosperous and sustained by intergenerational wellbeing.</p>
+            
+            <hr/>
+
+            <h5>Purpose</h5>
+            <p><em>The Trusts specific role</em></p>
+            <p>Pouto Tōpū A Trust serves as the economic foundation for our shareholders, dedicated to investing in, managing, and growing our assets to ensure the prosperity of our people and communities.</p>
+            
+            <hr/>
+
+            <h5>Values</h5>
+            <p><em>The principles that infuse all our work.</em></p>
+                <p className="mb-0"><strong>Kaitiakitanga</strong> - We are guardians for the next generations.</p>
+                <p className="mb-0"><strong>Tikanga </strong>- Customs &amp; values keep us strong and focused.</p>
+                <p className="mb-0"><strong>Manaakitanga</strong> - Caring for others.</p>
+                <p className="mb-0"><strong>Whakapapa</strong> - Our connection enriches us.</p>
+                <p className="mb-0"><strong>Rangatiratanga </strong>- Pave the way.</p>
+                <p className="mb-0"><strong>Kotahitanga</strong>- We act collectively and stand united.</p>
+        </>
+    )
+}
+
+const Workstreams: FC<IMembers> = (block) => {
+    return (
+        <>
+            <h5>Commercial</h5>
+            <p><strong>Long-term Goal</strong></p>
+            <p>Our diverse, profitable and environmentally-sound whenua-based enterprises are providing local employment and career pathways for our people.</p>
+            <p><strong>Strategic priorities for next 3 years</strong></p>
+            <ul>
+                <li>Adding value to our red meat business and advancing our horticulture development opportunities.</li>
+                <li>Continue to manage our dairy, forestry and apiculture businesses at their current levels of investment.</li>
+            </ul>
+
+            <hr />
+
+            <h5>Community</h5>
+            <p><strong>Long-term Goal</strong></p>
+            <p>Pouto is a vibrant and attractive community to live in, well supported by recreation, cultural and social activities.</p>
+            <p><strong>Strategic priorities for next 3 years</strong></p>
+            <ul>
+                <li>Continue our existing small, long-term and regular commitments to community projects.</li>
+                <li>Explore options for papakainga housing, Rangitane Hall upgrade and the wharenui development as well as to the provision of educational scholarships.</li>
+            </ul>
+
+            <hr />
+
+            <h5>Governance and Management</h5>
+            <p><strong>Long-term Goal</strong></p>
+            <p>The Pouto Tōpū A Trust works to a high level of professional excellence, is supported by its shareholders, is highly trusted and is effectively sustained across generations.</p>
+            <p><strong>Strategic priorities for next 3 years</strong></p>
+            <ul>
+                <li>Identify future trustees and their training needs.</li>
+                <li>Develop plans, policies and decision-making frameworks.</li>
+                <li>Develop an upskilling and mentoring plan for the Trust.</li>
+            </ul>
+        </>
+    )
+}
+
 interface IMembers extends IBlock {
     id: string,
     name: string,
@@ -147,6 +216,7 @@ interface IMembers extends IBlock {
     lastLoginDate: Date,
     properties: any[],
     documents: IDocument[],
+    strategy: IBlock[],
     host: string,
     onHandleUpdate?: (event: React.FormEvent<IHTMLFormElement>) => void
 }
