@@ -16,14 +16,16 @@ const Members: FC<IMembers> = (block) => {
         'My Details',
         'AGM',
         'Strategy',
-        'Workstreams'
+        'Workstreams',
+        'Grants'
     ]
 
     var controls: { [key: string]: any } = {
         'My Details': MyDetails,
         'AGM': Documents,
         'Strategy': Strategy,
-        'Workstreams': Workstreams
+        'Workstreams': Workstreams,
+        'Grants': Grants
     };
 
     const Tab = controls[tabs[tab]]
@@ -205,6 +207,35 @@ const Workstreams: FC<IMembers> = (block) => {
                 <li>Develop plans, policies and decision-making frameworks.</li>
                 <li>Develop an upskilling and mentoring plan for the Trust.</li>
             </ul>
+        </>
+    )
+}
+
+const Grants: FC<IMembers> = (block) => {
+    return (
+        <>
+            <h5>Individual Tertiary Education Grant</h5>
+            <p><strong>To ensure your application is processed please follow the guidelines below. Applications from businesses will not be considered.</strong></p>
+            <ol>
+                <li>To apply for a grant, you must be a Pouto Tōpū A Trust registered shareholder and/or beneficiary, and you must reside in New Zealand.</li>
+                <li>Only completed and signed application forms will be accepted. This can be sent by email, or post. Our email address and postal address are listed below.</li>
+                <li>You must provide confirmation of your enrolment and/or confirmation of the courses you are studying this year endorsed by the education institution you are enrolled in.</li>
+                <li>Pouto Tōpū A Trust does not accept any responsibility for lost or delayed applications caused by incorrect mailing instructions or delays in delivery.</li>
+                <li>You must advise Pouto Tōpū A Trust of any changes to your application i.e., withdrawal from institute or course, change of course etc. All changes must be advised in writing.</li>
+                <li>Incomplete or late applications will not be considered.</li>
+                <li>Funds will only be paid into a New Zealand bank account.</li>
+                <li>Completed signed applications must be received by Pouto Tōpū A Trust before the closing date deadline.</li>
+                <li>All applicants (successful and unsuccessful) will be notified in writing within 4 weeks after the closing date.</li>
+                <li><strong>IMPORTANT:</strong> These grant funds are for fees only and will only be paid upon successful completion of the vocational course and/or year.</li>
+            </ol>
+            <h4>CLOSING DATE</h4>
+            <p>APPLICATIONS CLOSE AT 4:00PM, FRIDAY 9th May 2025.</p>
+            <p>The close-off date and time are firm. Any applications received after this date and time will not be considered.</p>
+            <p><strong><a href="https://www.wntr.com.au/media/pozflsuo/2025-ptat-tertiary-education-grant-application.pdf" download>CLICK HERE TO DOWNLOAD THE FORM</a></strong></p>
+            <hr />
+            <p>Return your application and support documentation before 4.00pm Friday 9th May 2025</p>
+            <p><strong>By Email:</strong> admin@ptat.co.nz</p>
+            <p><strong>By Post:</strong><br/>Pouto Tōpū A Trust<br/>PO Box 307<br/>Dargaville 0310</p>
         </>
     )
 }
