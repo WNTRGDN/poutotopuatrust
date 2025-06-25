@@ -1,7 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { FC, useContext } from 'react'
 import { IBlock, IImageProps } from 'WNTR/interfaces'
 import { Container, Row, Col } from 'react-bootstrap'
-import Image from 'next/image'
 import Context from 'WNTR/utils/context'
 
 const Hero: FC<IHero> = (block) => {
@@ -11,12 +11,10 @@ const Hero: FC<IHero> = (block) => {
     return (
         <article className={block.alias}>
 
-            <Image
+            <img
             className={`${block.alias}__background`}
             src={`${block.background}?v=${block.image.cache}`}
-            layout="fill"
-            objectFit="cover"
-            objectPosition="center"
+            style={{ position: 'absolute', height: '100%', width: '100%', inset: '0px', objectFit: 'cover', objectPosition: 'center center', color: 'transparent' }}
             alt={`${context.website.name} Hero`} />
 
             <Container className={`${block.alias}__container`}>

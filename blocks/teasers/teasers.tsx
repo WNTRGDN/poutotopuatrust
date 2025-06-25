@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { Container, Row, Col } from 'react-bootstrap'
 import { IBlock, ICrops } from 'WNTR/interfaces'
 
@@ -36,7 +35,7 @@ const Teasers: FC<ITeasers> = (teasers) => {
 const Teaser: FC<ITeaser> = (teaser) => {
     return (
         <div className="rounded bg-white overflow-hidden d-block mb-4 position-relative">
-            <Image src={teaser.crops.Portrait} height={900} width={600} alt="" className="w-100 h-auto" />
+            <img src={teaser.crops.Portrait} height={900} width={600} alt="" className="w-100 h-auto" />
             <div className="wntrTeasersBlock__content position-absolute top-0 left-0 w-100 h-100 p-4 d-flex flex-column">
                 <h3 className="wntrTeasersBlock__title text-white text-uppercase">{teaser.title}</h3>
                 <div dangerouslySetInnerHTML={{__html: teaser.text}} className="text-white text-uppercase"></div>

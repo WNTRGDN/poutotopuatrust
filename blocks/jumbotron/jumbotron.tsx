@@ -2,7 +2,6 @@ import React, { FC, useContext } from 'react'
 import { IBlock, IImageProps } from 'WNTR/interfaces'
 import { Container, Row, Col } from 'react-bootstrap'
 import Context from 'WNTR/utils/context'
-import Image from 'next/image'
 
 const Jumbotron: FC<IJumbotron> = (block) => {
 

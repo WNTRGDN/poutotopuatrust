@@ -3,7 +3,6 @@ import Context from 'WNTR/utils/context'
 import { Form } from 'WNTR/components'
 import { Container, Row, Col } from 'react-bootstrap'
 import Link from 'next/link'
-import Image from 'next/image'
 
 const component = {
     name: 'wntrFooterComponent'
