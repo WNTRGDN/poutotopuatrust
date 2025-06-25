@@ -4,7 +4,6 @@ import { IMenu, ILink } from 'WNTR/interfaces'
 import { Container, Navbar, Offcanvas, Nav } from 'react-bootstrap'
 import { Login } from 'WNTR/components'
 import Link from 'next/link'
-import Image from 'next/image'
 
 const component = {
     name: 'wntrHeaderComponent'
@@ -35,7 +34,7 @@ const Header: FC = () => {
                     <Container>
                         <Navbar.Brand className={`${component.name}__navbar--brand`}>
                             <Link href="/">
-                                <Image className={`${component.name}__logo`} src={`${website.settings.logo}`} height="65" width="212" alt={`${website.name} logo`} />
+                                <img className={`${component.name}__logo`} src={`${website.settings.logo}`} height="65" width="212" alt={`${website.name} logo`} />
                             </Link>
                         </Navbar.Brand>
                         <Login />
